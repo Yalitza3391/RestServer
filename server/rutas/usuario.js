@@ -5,10 +5,17 @@ const _ =require('underscore');
 
 const Usuario= require('../modelos/usuario');
 
+const {verificatoken, verificaAdmin_Role}= require('../middlewares/auth.js')
+
 const app = express();
 
-app.get('/usuario',(req,res)=>{
+app.get('/usuario' ,verificatoken ,(req,res)=>{
 
+  
+    
+    
+    
+    
     let desde= req.query.desde || 0
     let limite=req.query.limite || 5
     desde=Number(desde);
@@ -38,7 +45,7 @@ app.get('/usuario',(req,res)=>{
 
 });
 
-app.post('/usuario',(req,res)=>{
+app.post('/usuario',[verificatoken, verificaAdmin_Role ],(req,res)=>{
     
     let body=req.body;
     let usuario=new Usuario({
@@ -69,7 +76,7 @@ app.post('/usuario',(req,res)=>{
 
 });
 
-app.put('/usuario/:id',(req,res)=>{
+app.put('/usuario/:id',[verificatoken, verificaAdmin_Role ],(req,res)=>{
 let id=req.params.id;
 let body=_.pick(req.body,['nombre','email','img','rol','estado']);
 
@@ -92,7 +99,7 @@ Usuario.findByIdAndUpdate(id,body,{new:true, runvalidators:true},(err,usuarioDB)
     
 });
 
-app.delete('/usuario/:id',(req,res)=>{
+app.delete('/usuario/:id',[verificatoken, verificaAdmin_Role ],(req,res)=>{
 let estado={
     estado:false
 }
