@@ -12,6 +12,7 @@ process.env.PORT=process.env.PORT || 3000
 
 
 //Caducidad token
+process.env.IDCLIENT=process.env.IDCLIENT || '787579104754-mg4iskm481us0bga011dp93iapjd0bem.apps.googleusercontent.com'
 process.env.CADUTOKEN=60*60*24*30
 process.env.SEED=process.env.SEED || 'SEED DESAROLLO'
 
